@@ -7,9 +7,9 @@ def main():
 	br = Browser()
 	todays_topic(br)
 	get_images(br, data_size())
-	# br.get_src()
 	print("\nNumber of images scraped = {}".format(len(br.sources)))
-	show_images(br.driver, br.sources)
+	#show_images(br.driver, br.sources)
+	download_images(br)
 	if(input("Close Chrome? (y/n): ") != 'n'):
 		br.driver.close()
 	return

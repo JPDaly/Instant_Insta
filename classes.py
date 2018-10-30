@@ -5,6 +5,7 @@ import time
 
 class Browser:
 	sources = []
+	topic = ""
 	driver = webdriver.Chrome(CHROMEDRIVER_DEST)
 	scroll_dist = SCROLL_INCREMENT
 

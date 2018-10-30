@@ -1,9 +1,12 @@
 import time
+import os
+from datetime import datetime 
+from urllib.request import urlretrieve
 from constants import *
 
 
 def loading_text(string, dots):
-	print(" "*int(len(string)+50), end='\r')
+	print(" "*int(len(string)+10), end='\r')
 	print(string + "."*int(dots), end='\r')
 	if dots == 3:
 		return 0
@@ -21,12 +24,11 @@ def data_size():
 	return size
 
 def todays_topic(br):
-	topic = ""
 	happy = False 
 	while(True):
-		topic = input("What is the topic for today?\nEnter Topic: ")
-		topic = topic.replace(" ", "")
-		br.get_tag(topic)
+		br.topic = input("What is the topic for today?\nEnter Topic: ")
+		br.topic = br.topic.replace(" ", "")
+		br.get_tag(br.topic)
 		if input("Happy with this choice? (y/n): ") != 'n':
 			break
 	return
@@ -60,4 +62,18 @@ def show_images(driver, image_set):
 		driver.get(src)
 		print("Showing image #{}".format(i), end='\r')
 		time.sleep(1)
+	return
+	
+def download_images(br):
+	dt = datetime.now().strftime('%d-%m-%Y_%H-%M_')
+	newfolder = DOWNLOAD_FOLDER_DIR + dt + br.topic
+	if not os.path.exists(newfolder):
+		os.makedirs(newfolder)
+	for i,src in enumerate(br.sources):
+		loading_text("Downloading image #{}".format(i+1), 0)
+		try:
+			urlretrieve(src,newfolder + "/" + FILE_NAME + str(i) + FILE_EXTENSION)
+		except:
+			print("Couldn't download image #{}".format(i))
+	print("")
 	return
