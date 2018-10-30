@@ -6,7 +6,7 @@ from constants import *
 
 
 def loading_text(string, dots):
-	print(" "*int(len(string)+10), end='\r')
+	print(" "*int(len(string)+50), end='\r')
 	print(string + "."*int(dots), end='\r')
 	if dots == 3:
 		return 0
@@ -14,7 +14,6 @@ def loading_text(string, dots):
 
 def data_size():
 	size = 0
-
 	while(True):
 		try:
 			size = int(input("Number of images to scrape: "))
@@ -37,6 +36,7 @@ def todays_topic(br):
 def get_images(br, n_images):
 	dots = 0
 	while(len(set(br.sources)) < n_images):
+		time.sleep(0.5)
 		br.scroll(IMG_START+str(1)+IMG_MID+str(1)+IMG_END, True)
 		for row in range(1,17):
 			errors = 0
@@ -50,12 +50,11 @@ def get_images(br, n_images):
 					br.sources = set(br.sources)
 					return
 			if errors >= 3:
+				time.sleep(0.5)
 				br.scroll(IMG_START+str(row)+IMG_MID+str(i)+IMG_END)
 				row -= 1
 			dots = loading_text("Scraping images", dots)
 	return
-
-
 
 def show_images(driver, image_set):
 	for i, src in enumerate(image_set):
@@ -65,10 +64,15 @@ def show_images(driver, image_set):
 	return
 	
 def download_images(br):
-	dt = datetime.now().strftime('%d-%m-%Y_%H-%M_')
+	dt = datetime.now().strftime('%d-%m-%Y_%H%M_')
 	newfolder = DOWNLOAD_FOLDER_DIR + dt + br.topic
+	
 	if not os.path.exists(newfolder):
 		os.makedirs(newfolder)
+	else:
+		print("This folder already exists. Images can't be saved")
+		return
+
 	for i,src in enumerate(br.sources):
 		loading_text("Downloading image #{}".format(i+1), 0)
 		try:
@@ -76,4 +80,5 @@ def download_images(br):
 		except:
 			print("Couldn't download image #{}".format(i))
 	print("")
+	
 	return
