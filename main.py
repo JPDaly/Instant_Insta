@@ -1,6 +1,8 @@
 from constants import *
 from classes import *
 from functions import *
+import os
+from PIL import Image
 import time
 
 def main():

@@ -1,5 +1,5 @@
 LOGIN = "https://www.instagram.com/accounts/login/"
-CHROMEDRIVER_DEST = "C:/Users/JordanDaly/Documents/Programming/Instant_Insta/Resources/chromedriver"
+CHROMEDRIVER_DEST = "./Resources/chromedriver"
 TAGS = "https://www.instagram.com/explore/tags/"
 
 IMG_START = "//*[@id='react-root']/section/main/article/div[2]/div/div["
