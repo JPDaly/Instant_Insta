@@ -6,7 +6,7 @@ IMG_START = "//*[@id='react-root']/section/main/article/div[2]/div/div["
 IMG_MID = "]/div["
 IMG_END = "]/a/div/div/img"
 
-DOWNLOAD_FOLDER_DIR = "C:/Users/JordanDaly/Documents/Programming/Instant_Insta/Downloads/"
+DOWNLOAD_FOLDER_DIR = "./Downloads/"
 
 FILE_NAME = "image_"
 FILE_EXTENSION = ".png"
