@@ -23,7 +23,6 @@ def data_size():
 	return size
 
 def todays_topic(br):
-	happy = False 
 	while(True):
 		br.topic = input("What is the topic for today?\nEnter Topic: ")
 		br.topic = br.topic.replace(" ", "")
@@ -31,7 +30,6 @@ def todays_topic(br):
 		if input("Happy with this choice? (y/n): ") != 'n':
 			break
 	return
-
 
 def get_images(br, n_images):
 	dots = 0
@@ -62,7 +60,7 @@ def show_images(driver, image_set):
 		print("Showing image #{}".format(i), end='\r')
 		time.sleep(1)
 	return
-	
+
 def download_images(br):
 	dt = datetime.now().strftime('%d-%m-%Y_%H%M_')
 	newfolder = DOWNLOAD_FOLDER_DIR + dt + br.topic
@@ -72,7 +70,6 @@ def download_images(br):
 	else:
 		print("This folder already exists. Images can't be saved")
 		return
-
 	for i,src in enumerate(br.sources):
 		loading_text("Downloading image #{}".format(i+1), 0)
 		try:
@@ -80,5 +77,14 @@ def download_images(br):
 		except:
 			print("Couldn't download image #{}".format(i))
 	print("")
-	
 	return
+	
+def related_image(br, element):
+	tags = br.retrieve_tags(element)
+	return True
+	
+	
+	
+	
+	
+	

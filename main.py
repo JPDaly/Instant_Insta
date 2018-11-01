@@ -12,7 +12,7 @@ def main():
 	print("\nNumber of images scraped = {}".format(len(br.sources)))
 	#show_images(br.driver, br.sources)
 	download_images(br)
-	if(input("Close Chrome? (y/n): ") != 'n'):
+	if input("Close Chrome? (y/n): ") != 'n':
 		br.driver.close()
 	return
 

@@ -27,22 +27,32 @@ class Browser:
 			self.driver.execute_script("window.scrollTo(0, "+str(self.scroll_dist)+")")		
 			time.sleep(0.5)
 			dots = loading_text("Searching for more images", dots)
-			total_time += 0.5
 			if total_time >= 30:
-				print("\nError. Couldn't find element.")
+				print("\nError. Couldn't find image and timed out.")
 				exit()
-				
 			try:
 				element = self.driver.find_element_by_xpath(xpath)
 				src = element.get_attribute('src')
 				found = True
 			except:
+				total_time += 0.5
 				# This isn't needed but it makes this more readable.
 				found = False
 				
 			if (check_sources and (src not in self.sources)) or (not check_sources and found):
 				break
 		return
+		
+	def retrieve_tags(element):
+		'''
+			Need to check for tags in the caption and the first comment of the post 
+			Or  check if this is even possible on desktop
+		'''
+		
+		tag_string = tag_string.replace(' ', '').replace(',', '')
+		tags = tag_string.split('#')
+		return tags
+		
 		
 		
 		
