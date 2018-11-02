@@ -11,5 +11,4 @@ DOWNLOAD_FOLDER_DIR = "./Downloads/"
 FILE_NAME = "image_"
 FILE_EXTENSION = ".png"
 
-
 SCROLL_INCREMENT = 200
