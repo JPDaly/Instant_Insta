@@ -6,6 +6,7 @@ import time
 class Browser:
 	sources = []
 	topic = ""
+	descriptions = []
 	driver = webdriver.Chrome(CHROMEDRIVER_DEST)
 	scroll_dist = SCROLL_INCREMENT
 
@@ -42,20 +43,6 @@ class Browser:
 			if (check_sources and (src not in self.sources)) or (not check_sources and found):
 				break
 		return
-		
-	def retrieve_tags(element):
-		'''
-			Need to check for tags in the caption and the first comment of the post 
-			Or  check if this is even possible on desktop
-		'''
-		
-		tag_string = tag_string.replace(' ', '').replace(',', '')
-		tags = tag_string.split('#')
-		return tags
-		
-		
-		
-		
 		
 		'''
 		This is the old way that I did the above scroll method

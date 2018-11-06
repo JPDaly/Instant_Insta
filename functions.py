@@ -3,6 +3,7 @@ import os
 from datetime import datetime 
 from urllib.request import urlretrieve
 from constants import *
+import string
 
 
 def loading_text(string, dots):
@@ -42,6 +43,7 @@ def get_images(br, n_images):
 				try:
 					element = br.driver.find_element_by_xpath(IMG_START+str(row)+IMG_MID+str(i)+IMG_END)
 					br.sources.append(element.get_attribute('src'))
+					br.descriptions.append(element.get_attribute('alt').replace('\n', ''))
 				except:
 					errors += 1
 				if(len(set(br.sources)) >= n_images):
@@ -65,11 +67,16 @@ def download_images(br):
 	dt = datetime.now().strftime('%d-%m-%Y_%H%M_')
 	newfolder = DOWNLOAD_FOLDER_DIR + dt + br.topic
 	
+	
+	
+	#Create new folder
 	if not os.path.exists(newfolder):
 		os.makedirs(newfolder)
 	else:
 		print("This folder already exists. Images can't be saved")
 		return
+		
+	#Save all images into folder
 	for i,src in enumerate(br.sources):
 		loading_text("Downloading image #{}".format(i+1), 0)
 		try:
@@ -77,14 +84,18 @@ def download_images(br):
 		except:
 			print("Couldn't download image #{}".format(i))
 	print("")
+	
+	#save descriptions to a txt file
+	dots = 0
+	printable_chars = string.printable
+	file = open(newfolder + "/" + "descriptions.txt", 'w+')
+	for description in br.descriptions:
+		dots = loading_text("Saving descriptions", dots)
+		for c in description:
+			if c in printable_chars:
+				file.write(c)
+		file.write("\n")
+	print("")
 	return
-	
-def related_image(br, element):
-	tags = br.retrieve_tags(element)
-	return True
-	
-	
-	
-	
 	
 	

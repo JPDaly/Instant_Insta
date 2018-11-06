@@ -20,3 +20,25 @@ Solutions:
 		-eg when searching for sunset you might find #sun or #sunset_photo
 		-if hashtags with sunset (or subset as described above) > other unrelated hashtags then use image
 -Feature identification through deep learning/neural networks
+
+
+----Unsupervised learning----
+
+If it turns out that it's near impossible to use google images it would be better to use an unsupervised learning algorithm to determine
+whether an image is okay to use or not.
+
+Features:
+	-Number of tags (check comments for tags too)
+	-Number of tags related to topic
+	-Number of times topic is mentioned in caption and/or comments
+	-Is there different common theme? (eg: lots of tags with the word mountain in them)
+	-Not sure about these yet but just ideas:
+		-Most common colour in image
+		-range of colours in images
+		-Don't think we need all the pixels (too computationally expensive)
+
+RGB to single colour value:
+	-Use a tree such that for R there are n ranges of values then at G there are the same etc.
+	-and the leaf there is the colour value.
+	-therefore n^3 leaf nodes
+ 
