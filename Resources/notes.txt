@@ -32,6 +32,7 @@ Features:
 	-Number of tags related to topic
 	-Number of times topic is mentioned in caption and/or comments
 	-Is there different common theme? (eg: lots of tags with the word mountain in them)
+(The above probably won't work. It seems that captions don't have any meaning when it comes to the contents of the image)
 	-Not sure about these yet but just ideas:
 		-Most common colour in image
 		-range of colours in images
@@ -41,4 +42,3 @@ RGB to single colour value:
 	-Use a tree such that for R there are n ranges of values then at G there are the same etc.
 	-and the leaf there is the colour value.
 	-therefore n^3 leaf nodes
- 

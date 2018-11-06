@@ -5,7 +5,6 @@ import os
 import time
 
 
-
 def main():
 	#retrieve the file names
 	folders = [name for name in os.listdir('.')] 
@@ -14,7 +13,7 @@ def main():
 	#start timing
 	start_time = time.time()
 	
-	files = [name for name in os.listdir("./" + folder)]
+	files = [name for name in os.listdir("./" + folder) if ".png" in name]
 	n_files = len(files)
 	
 	
