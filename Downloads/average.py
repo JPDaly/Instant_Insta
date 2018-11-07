@@ -31,7 +31,7 @@ def main():
 				ave[i] = tuple(map(operator.add, ave[i], pixel))
 			except:
 				ave.append(pixel)
-	
+		im.close()
 	for i in range(len(ave)):
 			ave[i] = (ave[i][0]//images_used,ave[i][1]//images_used,ave[i][2]//images_used)
 	

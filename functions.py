@@ -80,7 +80,7 @@ def download_images(br):
 		try:
 			urlretrieve(post[0],newfolder + "/" + FILE_NAME + str(i) + FILE_EXTENSION)
 		except:
-			print("Couldn't download image #{}".format(i))
+			print("\nCouldn't download image #{}".format(i))
 	print("")
 	
 	#save descriptions to a txt file
