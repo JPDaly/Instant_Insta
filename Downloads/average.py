@@ -16,25 +16,31 @@ def main():
 	files = [name for name in os.listdir("./" + folder) if ".png" in name]
 	n_files = len(files)
 	
-	
+	# Iterate through each image
 	ave = []
 	images_used = 0
 	for file in files:
 		im = Image.open(folder + '/' + file)
+		# skip image if it isn't the typical size
 		if im.size != (640,640):
 			continue
 		print("On image #{}".format(images_used), end='\r'	)
 		images_used += 1
 		pixels = list(im.getdata())
+		#Iterate through each pixel
 		for i, pixel in enumerate(pixels):
 			try:
+				# This is how you have to add when tuples are involved
 				ave[i] = tuple(map(operator.add, ave[i], pixel))
 			except:
+				#Do this if ave isn't big enough yet
 				ave.append(pixel)
 		im.close()
+	# Divide by number of images used to get the average
 	for i in range(len(ave)):
 			ave[i] = (ave[i][0]//images_used,ave[i][1]//images_used,ave[i][2]//images_used)
 	
+	# Save the image
 	new = Image.new('RGB', (640,640))
 	new.putdata(ave)
 	dt = datetime.now().strftime('%d-%m-%Y_%H%M_')
