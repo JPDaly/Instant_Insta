@@ -7,11 +7,12 @@ import time
 
 
 
-def main():
-	#retrieve the file names
-	folders = [name for name in os.listdir(DOWNLOAD_FOLDER_DIR)] 
-	print(folders)
-	folder = DOWNLOAD_FOLDER_DIR + folders[int(input("Select folder by number: ")) - 1] + "/"
+def average(folder=None):
+	if folder == None:
+		#retrieve the folder names
+		folders = [name for name in os.listdir(DOWNLOAD_FOLDER_DIR)] 
+		print(folders)
+		folder = DOWNLOAD_FOLDER_DIR + folders[int(input("Select folder by number: ")) - 1] + "/"
 	
 	#start timing
 	start_time = time.time()
@@ -34,7 +35,7 @@ def main():
 				ave[i] = tuple(map(operator.add, ave[i], pixel))
 			except:
 				ave.append(pixel)
-	
+	print("")
 	for i in range(len(ave)):
 			ave[i] = (ave[i][0]//images_used,ave[i][1]//images_used,ave[i][2]//images_used)
 	
@@ -42,15 +43,18 @@ def main():
 	new.putdata(ave)
 	dt = datetime.now().strftime('%Y-%m-%d_%H%M_')
 	# File names are in the format year_month_day_hourminute_topic_images_used.extension
-	new.save("./Averages/" + dt + folder.split('_')[-1][:-1] + "_" + str(images_used) + FILE_EXTENSION)
+	file = "./Averages/" + dt + folder.split('_')[-1][:-1] + "_" + str(images_used) + FILE_EXTENSION
+	new.save(file)
+	
+	print("\nFinished. See image {}".format(file))
 	
 	#print runtime
-	print("\n--- %s seconds ---" % (time.time() - start_time))
+	print("\n--- %s seconds ---\n" % (time.time() - start_time))
 	
 	return
 
 if __name__ == "__main__":
-	main()
+	average()
 	
 	
 	

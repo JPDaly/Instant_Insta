@@ -1,13 +1,15 @@
 from selenium import webdriver
 from constants import *
-from functions import *
+from scrape_functions import *
 import time
 
 class Browser:
 	posts = []
 	topic = ""
-	driver = webdriver.Chrome(CHROMEDRIVER_DEST)
 	scroll_dist = SCROLL_INCREMENT
+	
+	def __init__(self):
+		self.driver = webdriver.Chrome(CHROMEDRIVER_DEST)
 
 	#Opens the page using the chosen tag. (Also makes sure page is loaded before exiting)
 	def get_tag(self, tag):

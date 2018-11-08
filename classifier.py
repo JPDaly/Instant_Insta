@@ -1,24 +1,21 @@
 from PIL import Image
-import numpy as np
 import pandas as pd
 import os
 import time
 from sklearn import cluster
+from constants import DOWNLOAD_FOLDER_DIR,DESC_FILE,INCREMENT
 
-IMAGES_DEST = './Downloads/'
-DESC_FILE = "descriptions.txt"
-INCREMENT = 51 #factors are 1,3,5,15,17,51,85,255
-
-def main():
+def classifier(folder=None):
 	#retrieve the file names
-	folders = [name for name in os.listdir(IMAGES_DEST)] 
-	print(folders)
-	folder = folders[int(input("Select folder by index: ")) - 1] + "/"
+	if folder == None:
+		folders = [name for name in os.listdir(DOWNLOAD_FOLDER_DIR)] 
+		print(folders)
+		folder = DOWNLOAD_FOLDER_DIR + folders[int(input("Select folder by index: ")) - 1] + "/"
 	topic = folder.split("_")[-1][:-1]
 	
 	image_files = get_file_names(folder)
 	#The descriptions folder is always named the same so this just opens it
-	descriptions = open(IMAGES_DEST + folder + DESC_FILE, 'r').read().split('\n')[:-1]
+	descriptions = open(folder + DESC_FILE, 'r').read().split('\n')[:-1]
 	
 	#start timing
 	start_time = time.time()
@@ -46,6 +43,7 @@ def main():
 	labels = k_means.labels_
 	
 	# Print out the images in the smaller class
+	print("\n----Outliers----\n")
 	topic_class = 0
 	if sum(labels) >= len(labels)/2:
 		topic_class = 1
@@ -54,15 +52,14 @@ def main():
 			print(image_files[i])
 	
 	#print runtime
-	print("\n--- %s seconds ---" % (time.time() - start_time))
+	print("\n--- %s seconds ---\n" % (time.time() - start_time))
 	
 	#ask if the user wants to delete the above printed images
 	if input("Remove these images? (y/n): ") != 'n':
 		for i,label in enumerate(labels):
 			if label != topic_class:
-				os.remove(image_files[i]) 
-	
-	
+				os.remove(image_files[i])
+	print("\nImages deleted.")
 	return
 	
 # --------Functions--------
@@ -71,7 +68,7 @@ def main():
 def get_file_names(folder):
 	temp = []
 	files = []
-	for name in os.listdir(IMAGES_DEST + folder):
+	for name in os.listdir(folder):
 		if ".png" not in name:
 			continue
 		#Gets the number from the file name and passes it as an int
@@ -79,7 +76,7 @@ def get_file_names(folder):
 		temp.append([name, num])
 	#sort using the num value
 	temp = sorted(temp, key=lambda l:l[1])
-	files = [IMAGES_DEST + folder + name[0] for name in temp]
+	files = [folder + name[0] for name in temp]
 	return files
 	
 #removes the least common colours columns
@@ -156,4 +153,4 @@ def cap_mentions(descriptions, topic):
 		
 		
 if __name__ == "__main__":
-	main()	
+	classifier()	

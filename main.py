@@ -1,28 +1,16 @@
-from constants import *
-from classes import *
-from functions import *
-import os
-from PIL import Image
-import time
+from scrape import *
+from classifier import *
+from average import *
 
 def main():
-	
-	br = Browser()
-	todays_topic(br)
-
-	#start timing
-	start_time = time.time()
-	
-	get_images(br, data_size())
-	print("\nNumber of images scraped = {}".format(len(br.posts)))
-	#show_images(br.driver, br.sources)
-	download_images(br)
-	
-	#Show runtime
-	print("\n--- %s seconds ---" % (time.time() - start_time))
-	
-	if input("Close Chrome? (y/n): ") != 'n':
-		br.driver.close()
+	if input("Do you want to scrape (s) new images or use an existing (e) folder? (s/e): ") == 's':
+		folder = scrape()
+	else:
+		folder = None
+	if input("\nWould you like to use classifier.py to remove outliers? (y/n): ") != 'n':
+		classifier(folder)
+	if input("\nWould you like to use average.py to generate an image? (y/n): ") != 'n':
+		average(folder)
 	return
 	
 

@@ -12,3 +12,6 @@ FILE_NAME = "image_"
 FILE_EXTENSION = ".png"
 
 SCROLL_INCREMENT = 200
+
+DESC_FILE = "descriptions.txt"
+INCREMENT = 51 #factors are 1,3,5,15,17,51,85,255
