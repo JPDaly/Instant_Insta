@@ -1,4 +1,7 @@
 # Instant_Insta
+
+This project has been put on hold while I work on another that will help me improve/finish this one.
+
 Instant_Insta will automatically update your Instagram account based on a hashtag.
 
 Instant_insta achieves this by downloading images off instagram based on a hashtag of your choice. It then attempts to remove unrelated images using a KMeans algorithm.
