@@ -63,7 +63,6 @@ def get_images(br, n_images):
 				try:
 					element = br.driver.find_element_by_xpath(IMG_START+str(row)+IMG_MID+str(i)+IMG_END)
 					br.sources.append(element.get_attribute('src'))
-					br.descriptions.append(element.get_attribute('alt').replace('\n', ''))
 				except:
 					errors += 1
 				#if we have enough images before 17 rows are iterated through return early
@@ -110,17 +109,6 @@ def download_images(br):
 			print("Couldn't download image #{}".format(i))
 	print("")
 	
-	#save descriptions to a txt file
-	dots = 0
-	printable_chars = string.printable
-	file = open(newfolder + "/" + "descriptions.txt", 'w+')
-	for description in br.descriptions:
-		dots = loading_text("Saving descriptions", dots)
-		for c in description:
-			if c in printable_chars:
-				file.write(c)
-		file.write("\n")
-	print("")
 	return
 	
 	
