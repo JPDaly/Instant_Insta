@@ -12,7 +12,7 @@ def main():
 	folders = [name for name in os.listdir(DOWNLOAD_FOLDER_DIR)] 
 	print(folders)
 	folder = DOWNLOAD_FOLDER_DIR + folders[int(input("Select folder by number: ")) - 1] + "/"
-	print(folder)
+	
 	#start timing
 	start_time = time.time()
 	

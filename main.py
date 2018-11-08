@@ -18,7 +18,6 @@ def main():
 	#show_images(br.driver, br.sources)
 	download_images(br)
 	
-
 	#Show runtime
 	print("\n--- %s seconds ---" % (time.time() - start_time))
 	

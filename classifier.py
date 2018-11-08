@@ -39,8 +39,6 @@ def main():
 	#Only use the top colours
 	feature_df = structure_df(feature_df)
 	
-	print(feature_df)
-	
 	#Use clustering to hopefully remove unrelated images
 	data = feature_df.values
 	k_means = cluster.KMeans(n_clusters=2)
