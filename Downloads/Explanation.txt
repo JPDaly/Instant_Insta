@@ -1,1 +1,1 @@
-This folder is where your scraped images will be downloaded.
+This is where your scraped images will be downloaded.
