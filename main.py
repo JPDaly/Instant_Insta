@@ -6,23 +6,26 @@ from PIL import Image
 import time
 
 def main():
+	
 	br = Browser()
 	todays_topic(br)
-	
+
 	#start timing
 	start_time = time.time()
 	
 	get_images(br, data_size())
-	print("\nNumber of images scraped = {}".format(len(br.sources)))
+	print("\nNumber of images scraped = {}".format(len(br.posts)))
 	#show_images(br.driver, br.sources)
 	download_images(br)
 	
+
 	#Show runtime
 	print("\n--- %s seconds ---" % (time.time() - start_time))
 	
 	if input("Close Chrome? (y/n): ") != 'n':
 		br.driver.close()
 	return
+	
 
 if __name__ == "__main__":
 	main()

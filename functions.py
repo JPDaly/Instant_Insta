@@ -50,8 +50,9 @@ Note:
 '''
 def get_images(br, n_images):
 	dots = 0
+
 	#loop until we have enough images
-	while(len(set(br.sources)) < n_images):
+	while(len(set(br.posts)) < n_images):
 		#scroll until we have a new set of 17 rows
 		br.scroll(IMG_START+str(1)+IMG_MID+str(1)+IMG_END, True)
 		#loop through available 17 rows
@@ -62,12 +63,12 @@ def get_images(br, n_images):
 				#try to retrieve the source of the image
 				try:
 					element = br.driver.find_element_by_xpath(IMG_START+str(row)+IMG_MID+str(i)+IMG_END)
-					br.sources.append(element.get_attribute('src'))
+					br.posts.append((element.get_attribute('src'), element.get_attribute('alt').replace('\n', '')))
 				except:
 					errors += 1
 				#if we have enough images before 17 rows are iterated through return early
-				if(len(set(br.sources)) >= n_images):
-					br.sources = set(br.sources)
+				if(len(set(br.posts)) >= n_images):
+					br.posts = set(br.posts)
 					return
 			#If all 3 images in the row weren't found scroll until that row is found
 			if errors >= 3:
@@ -76,6 +77,7 @@ def get_images(br, n_images):
 				#try the row again
 				row -= 1
 			dots = loading_text("Scraping images", dots)
+	br.posts = set(br.posts)
 	return
 
 #Used for testing but simply displays the images in the browser
@@ -101,14 +103,25 @@ def download_images(br):
 		return
 		
 	#Save all images into folder
-	for i,src in enumerate(br.sources):
+	for i,post in enumerate(br.posts):
 		loading_text("Downloading image #{}".format(i+1), 0)
 		try:
-			urlretrieve(src,newfolder + "/" + FILE_NAME + str(i) + FILE_EXTENSION)
+			urlretrieve(post[0],newfolder + "/" + FILE_NAME + str(i) + FILE_EXTENSION)
 		except:
-			print("Couldn't download image #{}".format(i))
+			print("\nCouldn't download image #{}".format(i))
 	print("")
 	
+	#save descriptions to a txt file
+	dots = 0
+	printable_chars = string.printable
+	file = open(newfolder + "/" + "descriptions.txt", 'w+')
+	for post in br.posts:
+		dots = loading_text("Saving descriptions", dots)
+		for c in post[1]:
+			if c in printable_chars:
+				file.write(c)
+		file.write("\n")
+	print("")
 	return
 	
 	

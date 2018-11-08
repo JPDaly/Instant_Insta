@@ -4,7 +4,7 @@ from functions import *
 import time
 
 class Browser:
-	sources = []
+	posts = []
 	topic = ""
 	driver = webdriver.Chrome(CHROMEDRIVER_DEST)
 	scroll_dist = SCROLL_INCREMENT
@@ -28,6 +28,7 @@ class Browser:
 		dots = 0
 		total_time = 0
 		found = False
+		sources = [post[0] for post in self.posts]
 		
 		
 		while(True):
@@ -48,9 +49,9 @@ class Browser:
 			except:
 				total_time += 0.5
 				# This isn't needed but it makes this more readable.
-				found = False
-			
-			if (check_sources and (src not in self.sources)) or (not check_sources and found):
+				found = False				
+				
+			if (check_sources and (src not in sources)) or (not check_sources and found):
 				break
 		return
 		
